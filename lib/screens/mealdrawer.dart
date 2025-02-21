@@ -3,10 +3,13 @@ import 'package:meal_app/model/meals.dart';
 import 'package:meal_app/widgets/meal_itemstrait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Mealitems extends StatelessWidget {
-  const Mealitems({super.key, required this.meal, required this.onSelectMeal});
-
+class Mealdrawer extends StatelessWidget {
+  const Mealdrawer({
+    super.key,
+    required this.meal,
+  });
   final Meal meal;
+
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() +
         meal.complexity.name.substring(1);
@@ -17,30 +20,30 @@ class Mealitems extends StatelessWidget {
         meal.affordability.name.substring(1);
   }
 
-  final void Function(BuildContext context, Meal meal) onSelectMeal;
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      clipBehavior: Clip.hardEdge,
-      elevation: 3,
-      child: InkWell(
-        onTap: () {
-          onSelectMeal(context, meal);
-        },
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(
+        "Meal Avaliable",
+        style: TextStyle(
+            color: const Color.fromARGB(255, 255, 247, 0),
+            fontWeight: FontWeight.bold),
+      )),
+      body: Card(
+        margin: const EdgeInsets.all(8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        clipBehavior: Clip.hardEdge,
+        elevation: 3,
+
         child: Stack(
           children: [
-            Hero(
-              tag: meal.id,
-              child: FadeInImage(
-                placeholder: MemoryImage(kTransparentImage),
-                image: NetworkImage(meal.imageUrl),
-                fit: BoxFit.cover,
-                height: 200,
-                width: double.infinity,
-              ),
+            FadeInImage(
+              placeholder: MemoryImage(kTransparentImage),
+              image: NetworkImage(meal.imageUrl),
+              fit: BoxFit.cover,
+              height: 200,
+              width: double.infinity,
             ),
             Positioned(
               bottom: 0,
@@ -53,7 +56,7 @@ class Mealitems extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      meal.title,
+                      meal.title, 
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       softWrap: true,
@@ -64,7 +67,7 @@ class Mealitems extends StatelessWidget {
                         color: Colors.white,
                       ), // Very long text...
                     ),
-                    const SizedBox(
+                    const SizedBox( 
                       width: 12,
                     ),
                     Row(
